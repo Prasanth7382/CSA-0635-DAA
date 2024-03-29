@@ -1,0 +1,38 @@
+#include <stdio.h>
+#define MAX_ITEMS 100
+#define MAX_CONTAINERS 100
+void containerLoader(int items[], int n, int containerCapacity) {
+    int containers[MAX_CONTAINERS] = {0};
+    int containerCount = 0;
+    for (int i = 0; i < n; i++) {
+        int j;
+        for (j = 0; j < containerCount; j++) {
+            if (containers[j] + items[i] <= containerCapacity) {
+                containers[j] += items[i];
+                break;
+            }
+        }
+        if (j == containerCount) {
+            containers[containerCount++] = items[i];
+        }
+    }
+    printf("Container Loading Result:\n");
+    for (int i = 0; i < containerCount; i++) {
+        printf("Container %d: %d\n", i + 1, containers[i]);
+    }
+    printf("Total containers used: %d\n", containerCount);
+}
+int main() {
+    int items[MAX_ITEMS];
+    int n, capacity;
+    printf("Enter the number of items: ");
+    scanf("%d", &n);
+    printf("Enter the weights of items:\n");
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &items[i]);
+    }
+    printf("Enter the capacity of each container: ");
+    scanf("%d", &capacity);
+    containerLoader(items, n, capacity);
+    return 0;
+}
