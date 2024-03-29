@@ -1,0 +1,57 @@
+#include <stdio.h>
+#include <stdlib.h>
+struct Node
+ {
+    int data;
+    struct Node* next;
+};
+struct Node* createNode(int data)
+ {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    if (newNode == NULL) 
+	{
+        printf("Memory allocation failed\n");
+        exit(1);
+    }
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+void insertNumber(struct Node** head, int data) 
+{
+    struct Node* newNode = createNode(data);
+    if (*head == NULL) 
+	{
+        *head = newNode;
+    } else {
+        struct Node* temp = *head;
+        while (temp->next != NULL)
+		 {
+            temp = temp->next;
+        }
+        temp->next = newNode;
+    }
+}
+void printList(struct Node* head)
+ {
+    struct Node* temp = head;
+    while (temp != NULL) {
+        printf("%d ", temp->data);
+        temp = temp->next;
+    }
+    printf("\n");
+}
+int main()
+ {
+    struct Node* head = NULL;
+    insertNumber(&head, 10);
+    insertNumber(&head, 20);
+    insertNumber(&head, 30);
+    printf("List before insertion: ");
+    printList(head);
+    int numberToInsert = 25;
+    insertNumber(&head, numberToInsert);
+    printf("List after inserting %d: ", numberToInsert);
+    printList(head);
+    return 0;
+}
